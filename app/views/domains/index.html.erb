@@ -48,7 +48,57 @@
     </thead>
     <tbody>
       <% @domains.each do |domain| %>
+<<<<<<< HEAD
         <%= render "domain", domain: domain %>
+=======
+      <% if domain.expired? %>
+      <tr class="expire">
+        <td><%= fa_icon 'flag', class: 'red', data: { placement: :left, toggle: :tooltip, original_title: 'Expired Domain' } %></td>
+        <td class="expire"><%= link_to domain.name, domain_path(domain), data: { placement: :right, toggle: :tooltip, original_title: 'This domain has expired. You should renew it now.' } %></td>
+        <% if current_user.admin %>
+        <td><%= domain.partner %></td>
+        <% end %>
+        <td><%= formatted_date domain.registered_at %></td>
+        <td><%= formatted_date domain.expires_at %></td>
+        <td>
+          <% if domain.renew_allowed? %>
+            <%= link_to "Renew", domain_renew_path(domain.id), "data-confirm": "Are you sure you want to renew for 1 year?", class: 'renew' %>
+          <% end %>
+        </td>
+      </tr>
+      <% elsif domain.expiring? %>
+      <tr class="expire">
+        <td><%= fa_icon 'flag', class: 'yellow', data: { placement: :left, toggle: :tooltip, original_title: 'Expiring Domain' } %></td>
+        <td class="expire"><%= link_to domain.name, domain_path(domain), data: { placement: :right, toggle: :tooltip, original_title: 'This domain is about to expire. You should renew it now.' } %></td>
+        <% if current_user.admin %>
+        <td><%= domain.partner %></td>
+        <% end %>
+        <td><%= formatted_date domain.registered_at %></td>
+        <td><%= formatted_date domain.expires_at %></td>
+        <td>
+          <% if domain.renew_allowed? %>
+            <%= link_to "Renew", domain_renew_path(domain.id), "data-confirm": "Are you sure you want to renew for 1 year?", class: 'renew' %>
+          <% end %>
+        </td>
+      </tr>
+      <% else %>
+      <tr>
+        <td></td>
+        <td><%= link_to domain.name, domain_path(domain) %></td>
+        <% if current_user.admin %>
+        <td><%= domain.partner %></td>
+        <% end %>
+        <td><%= formatted_date domain.registered_at %></td>
+        <td><%= formatted_date domain.expires_at %></td>
+        <td>
+          <% if domain.renew_allowed? %>
+            <%= link_to "Renew", domain_renew_path(domain.id), "data-confirm": "Are you sure you want to renew for 1 year?", class: 'renew' %>
+          <% end %>
+        </td>
+      </tr>
+      <% end %>
+
+>>>>>>> 9a236859b56960f68b5415d78763f980a2f2d3a6
       <% end %>
     </tbody>
   </table>
