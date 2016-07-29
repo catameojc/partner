@@ -27,7 +27,9 @@ after 'deploy:publishing', 'deploy:restart'
 #end
 
 namespace :deploy do
-  on roles :all do
+  task :restart do
+    on roles :all do
       execute "service unicorn upgrade"
+    end
   end
 end
