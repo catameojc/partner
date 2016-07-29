@@ -22,8 +22,6 @@ after 'deploy:publishing', 'deploy:restart'
 
 namespace :deploy do
   task :restart do
-    run_locally do
       run "service unicorn upgrade"
-    end
   end
 end
