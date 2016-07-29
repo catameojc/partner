@@ -21,7 +21,8 @@ set :assets_roles, [:web, :app]
 after 'deploy:publishing', 'deploy:restart'
 
 namespace :deploy do
-  task :restart do
-    invoke 'unicorn:restart'
+  desc "restart (upgrade) unicorn server"
+  task :restart, roles: :app, except: {no_release: true} do
+    run "service unicorn upgrade"
   end
 end
