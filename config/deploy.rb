@@ -28,6 +28,6 @@ after 'deploy:publishing', 'deploy:restart'
 
 namespace :deploy do
   on roles :all do
-      execute :service, "unicorn upgrade"
+      execute "service unicorn upgrade"
   end
 end
