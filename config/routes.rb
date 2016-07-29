@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'invoice', to: 'checkout#invoice'
   get 'receipt', to: 'checkout#receipt'
   get 'dns' => 'domain_hosts#dns'
+  get 'invoice/month' => 'checkout#invoicemonthly'
 
   root 'welcome#index'
 
@@ -20,7 +21,7 @@ Rails.application.routes.draw do
 
   resources :domains, only: [:index, :show, :update], id: /.*/ do
     get :renew
-    resources :hosts, controller: :domain_hosts, only: [:index, :create, :destroy], id: /.*/
+    resources :hosts, controller: :domain_hosts, only: [:index, :create, :edit, :update, :destroy], id: /.*/
   end
 
   resources :hosts, only: [:index, :show]

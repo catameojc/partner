@@ -94,13 +94,35 @@
       <div class="title">Nameservers</div>
       <div class="contact-info">
         <% unless @domain.hosts.empty? %>
-          <ul id="domain_hosts" class="list-unstyled">
-            <% @domain.hosts.each do |domain_host| %>
-            <li>
-              <%= link_to domain_host_path(@domain.name, domain_host.name), method: :delete, 'data-confirm': 'Are you sure you want to remove this nameserver?' do %><i class="fa fa-close"></i><% end %> <%= domain_host.name %>
-            </li>
-            <% end %>
-          </ul>
+          <!--table ns-->
+          <table class="table table-striped table-condensed">
+            <thead>
+              <tr>
+                <th width="10"></th>
+                <th width="200">Nameserver</th>
+                <th>IP Address</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @domain.hosts.each do |domain_host| %>
+                  <tr>
+                    <td>
+                      <%= link_to domain_host_path(@domain.name, domain_host.name), method: :delete, 'data-confirm': 'Are you sure you want to remove this nameserver?' do %><i class="fa fa-close"></i>
+                      <% end %>
+                    </td>
+                    <td><%= domain_host.name %></td>
+                    <td><%= domain_host.name %> IP ADDRESS</td>
+                    <td>
+                      <%= link_to edit_domain_host_path(id: domain_host.id, domain_id: @domain.id) do %>
+                        <i class="fa fa-pencil"></i>
+                      <% end %>
+                    </td>
+                  </tr>
+              <% end %>
+            </tbody>
+          </table>
+
         <% else %>
           <p>No Nameservers</p>
         <% end %>

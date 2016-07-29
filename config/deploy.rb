@@ -27,3 +27,10 @@ namespace :deploy do
     end
   end
 end
+#namespace :deploy do
+#  task :restart do
+#    on roles :all do
+#      execute "sudo service unicorn upgrade"
+#    end
+#  end
+#end

@@ -13,6 +13,11 @@ class DomainHost
     }
   end
 
+  def self.find domain_id, id, token:
+    url = "#{Rails.configuration.api_url}/domains/#{domain_id}/hosts/#{id}"
+    new get url, token: token
+  end
+
   def self.url domain_id, id: nil
     super resource: "domains/#{domain_id}/hosts", id: id
   end
@@ -33,5 +38,15 @@ class DomainHost
     self.errors.add :name, 'already in use'
 
     false
+  end
+
+  def update domain_id, token:
+    if self.errors.empty?
+      update_params = self.as_json
+      url = "#{Rails.configuration.api_url}/domains/#{domain_id}/hosts/#{id}"
+      DomainHost.patch url, update_params, token: token
+      return true
+    end
+    return false
   end
 end

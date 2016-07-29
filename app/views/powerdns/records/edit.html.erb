@@ -3,7 +3,6 @@
 <% end %>
 
 <h3 class="text-primary"><%= @domain_name %></h3>
-<hr>
 
 <%= simple_form_for @pdns_record,
   url: powerdns_record_path(id: @pdns_record.id, domain_id: @domain_id),

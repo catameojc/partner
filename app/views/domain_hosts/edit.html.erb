@@ -1,0 +1,90 @@
+<% content_for :banner_title do %>
+  <%= fa_icon 'pencil lg' %>&nbsp;Edit Nameserver
+    <% unless current_user.admin %>
+      <span><%= @domain_count %></span>
+    <% end %>
+<% end %>
+<h3 class="text-primary"><%= @domain.name %></h3>
+<%= simple_form_for @domain_host, url: domain_host_path, html: {method: :put} do |f| %>
+  <% if @domain_host.errors.any? %>
+    <div id="warning" class="alert alert-warning">
+      Some information is missing or incorrect.  Please check your entries and try again.
+    </div>
+  <% end %>
+  <%= f.hidden_field :domain_id, value: @domain_id %>
+  <div id="nameserver-info">
+    <div>
+      <label>Name</label>
+      <div>
+        <%= f.input :name, label: false, class: "form-control", input_html: {"data-domain": @domain.name} %>
+      </div>
+    </div>
+    <% if @ip_list %>
+      <div class="nameserver-ipv4">
+        <label>IPv4</label>
+        <div>
+          <div class="form-group">
+            <%= text_field_tag "ipv4[0]", nil, class: "form-control domain-host-ipv4-field",
+              placeholder: "Enter IP Address", value: @ip_list["ipv4"]["0"] %>
+          </div>
+          <a class="btn btn-primary btn-sm btn-add-domain-host-ipv4">
+            <i class="fa fa-plus"></i>
+            <span class=""> Add More</span>
+          </a>
+        </div>
+      </div>
+      <div class="moreIPV4">
+        <% @ip_list["ipv4"].each_with_index do |ipv4, index| %>
+          <% unless index == 0 %>
+            <label class="ipv4_<%= index %>"></label>
+            <div class="ipv4_<%= index %>">
+              <div class="form-group">
+                <%= text_field_tag "ipv4[#{index}]", nil, class: "form-control domain-host-ipv4-field",
+                  placeholder: "Enter IP Address", value: ipv4[1] %>
+              </div>
+              <a class="btn btn-default btn-sm btn-remove-domain-host-ipv4">
+                <i class="fa fa-close"></i>
+                <span class="sr-only">Delete</span>
+              </a>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="nameserver-ipv6">
+        <label>IPv6</label>
+        <div>
+          <div class="form-group">
+            <%= text_field_tag "ipv6[0]", nil, class: "form-control domain-host-ipv6-field",
+              placeholder: "Enter IP Address", value: @ip_list["ipv6"]["0"]  %>
+          </div>
+          <a class="btn btn-primary btn-sm btn-add-domain-host-ipv6">
+            <i class="fa fa-plus"></i>
+            <span class=""> Add More</span>
+          </a>
+        </div>
+      </div>
+      <div class="moreIPV6">
+        <% @ip_list["ipv6"].each_with_index do |ipv6, index| %>
+          <% unless index == 0 %>
+            <label class="ipv6_<%= index %>"></label>
+            <div class="ipv6_<%= index %>">
+              <div class="form-group">
+                <%= text_field_tag "ipv6[#{index}]", nil, class: "form-control domain-host-ipv6-field",
+                  placeholder: "Enter IP Address", value: ipv6[1] %>
+              </div>
+              <a class="btn btn-default btn-sm btn-remove-domain-host-ipv6">
+                <i class="fa fa-close"></i>
+                <span class="sr-only">Delete</span>
+              </a>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <br>
+  <div class="edit-update">
+    <%= f.submit 'Update Domain Host', id: :submit %>
+    <%= link_to 'Cancel', domain_path(@domain.id), class: 'btn btn-sm btn-danger' %>
+  </div>
+<% end %>

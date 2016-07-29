@@ -22,7 +22,11 @@
       <% @credits.each do |credit| %>
       <tr>
         <td><%= formatted_timestamp credit.credited_at %></td>
-        <td><%= credit.credit_number %></td>
+        <td>
+          <a href="/receipt?id=<%= credit.credit_number %>" target="_blank">
+            <%= credit.credit_number %>
+          </a>
+        </td>
         <td>Replenish Credits</td>
         <td><%= number_to_currency(credit.amount.to_f, unit: '') %></td>
       </tr>
@@ -58,7 +62,7 @@
       <% @orders.each do |order| %>
       <tr>
         <td><%= formatted_timestamp order.ordered_at %></td>
-        <td><%= order.order_number %></td>
+        <td><a href="invoice/month" target="_blank"><%= order.order_number %></a></td>
         <td><%= order_detail_type order.type %></td>
         <td><%= order.period %></td>
         <td><%= order.domain %></td>

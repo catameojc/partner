@@ -63,16 +63,39 @@ class DomainHostsController < SecureController
     end
   end
 
+  def edit
+    @domain = Domain.find params[:domain_id], token: auth_token
+    @domain_host = DomainHost.find params[:domain_id], params[:id], token: auth_token
+    if @domain_host.ip_list
+      ip_list = @domain_host.ip_list
+      @ip_list = JSON.parse ip_list
+    end
+  end
+
+  def update
+    list = {"ipv4": params[:ipv4], "ipv6": params[:ipv6]}.to_json
+    domain_id = params[:domain_id]
+    domain_host = DomainHost.find domain_id, params[:id], token: auth_token
+    domain_host.name = create_params[:name]
+    domain_host.ip_list = list
+
+    if domain_host.update domain_id, token: auth_token
+      redirect_to domain_url(domain_id), notice: 'Nameserver updated!'
+    else
+      redirect_to domain_url(domain_id), notice: 'Not Updated!'
+    end
+  end
+
   def destroy
     domain  = params[:domain_id]
     host    = DomainHost.destroy domain, params[:id], token: auth_token
 
-    redirect_to domain_url(domain)
+    redirect_to domain_url(domain), notice: 'Nameserver deleted!'
   end
 
   private
 
   def create_params
-    params.require(:domain_host).permit :name, :ip_list
+    params.require(:domain_host).permit :name
   end
 end

@@ -36,3 +36,15 @@ $ ->
     thisParentClass = $(this).parent().prop('className')
     $('.' + thisParentClass).remove()
     return
+
+  $("#domain_host_name").keyup ->
+    domainName = $(this).data("domain")
+    glue_record_requirement = "." + domainName
+    if $(this).val().indexOf(glue_record_requirement) >= 0
+      $(".nameserver-ipv4, .nameserver-ipv6, .moreIPV4, .moreIPV6").show()
+    else
+      $(".nameserver-ipv4, .nameserver-ipv6, .moreIPV4, .moreIPV6").find('input:text').val('');
+      $(".nameserver-ipv4, .nameserver-ipv6, .moreIPV4, .moreIPV6").hide()
+    return
+
+  $("#domain_host_name").trigger("keyup")

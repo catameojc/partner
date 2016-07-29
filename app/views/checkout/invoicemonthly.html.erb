@@ -1,12 +1,12 @@
 <style type="text/css">
-  header, footer {
+.pull-right{ margin-top: 0px;}
+header, footer {
     display: none;
     visibility: hidden;
-  }
+}
 .container{
   margin: 25px auto;
   font-size: small;
-
 }
 h3 {
   margin-top: 0px;
@@ -80,78 +80,97 @@ table.well tfoot td{background-color: #F5F5F5;color: #333; font-size: 16px; font
   <hr>
   <div class="row">
     <div class=" col-xs-12">
-      <h3>Invoice</h3>
-      <strong>Date: </strong> <%= @credit.credited_at.to_date.strftime('%Y-%m-%d') %> <br>
-      <strong>Invoice No.:</strong> <%= @credit.credit_number %>
+      <div class="pull-right"><%= Time.now.strftime("%B %d, %Y") %></div>
+      <div>Juan Dela Cruz</div>
+      <div>JDC Corporation</div>
+      <div>Jollibee Plaza, F.Ortigas Jr. Road</div>
+      <div>Pasig City, NCR</div>
+      <div>1600, Philipppines</div>
     </div>
   </div>
+  <div class="spacer"> </div>
   <div class="spacer"> </div>
   <div class="spacer"> </div>
   <div class="row">
     <div class=" col-xs-12">
-      <h4 class="text-capitalize"> Partner Information</h4>
-      <div><%= @partner.organization %></div>
-      <div><%= @partner.street %></div>
-      <div><%= @partner.city %>, <%= @partner.state %></div>
-      <div><%= @partner.postal_code %> <%= @partner.country_code %></div>
+      <div><b>Invoice #</b> 123456789</div>
+      <div><b>Partner ID</b> <%= current_user.partner_name.downcase %></div>
     </div>
   </div>
+  <div class="spacer"> </div>
+  <div class="spacer"></div>
   <div class="spacer"></div>
   <div class="row">
   <div class="col-xs-12 ">
-    <h4>Transaction Details</h4>
+    <p><strong>Invoice Period:</strong> 2016-07-01 to 2016-07-31<br>For domains in the above mentioned period we charge as follows:</p>
     <div class="table-responsive">
       <table class="table table-hover well table-condensed">
         <thead>
           <tr>
-            <th>Description</th>
+            <th>Date</th>
+            <th>Domain</th>
+            <th>Type</th>
+            <th>Term</th>
             <th>Amount ($)</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Top-up Amount</td>
-            <td class="text-right"><%= @amount.format %></td>
+            <td>2016-07-28 06:10:58 UTC</td>
+            <td>domain.com.ph</td>
+            <td>Registration</td>
+            <td>2 years</td>
+            <td>$70.00</td>
           </tr>
           <tr>
-            <td>Transaction Fee</td>
-            <td class="text-right"><%= @transaction_fee.format %></td>
+            <td>2016-07-28 06:10:58 UTC</td>
+            <td>domain.ph</td>
+            <td>Registration</td>
+            <td>2 years</td>
+            <td>$70.00</td>
+          </tr>
+          <tr>
+            <td>2016-07-28 06:10:58 UTC</td>
+            <td>domain.net.ph</td>
+            <td>Registration</td>
+            <td>2 years</td>
+            <td>$70.00</td>
+          </tr>
+          <tr>
+            <td>2016-07-28 06:10:58 UTC</td>
+            <td>domain.org.ph</td>
+            <td>Registration</td>
+            <td>2 years</td>
+            <td>$70.00</td>
+          </tr>
+          <tr>
+            <td>2016-07-28 06:10:58 UTC</td>
+            <td>domains.com.ph</td>
+            <td>Registration</td>
+            <td>2 years</td>
+            <td>$70.00</td>
           </tr>
         </tbody>
         <tfoot>
           <tr>
             <td>TOTAL</td>
-            <td class="text-right"><%= @total.format %></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>$3,500.00</td>
           </tr>
         </tfoot>
-      </table>
-      <h4>Payment Details</h4>
-
-      <table class="table table-hover well table-condensed">
-        <thead>
-          <tr>
-            <th>Transaction Date</th>
-            <th>Gateway</th>
-            <th>Amount</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><%= @credit.credited_at.to_date.strftime('%Y-%m-%d') %></td>
-            <td>Credit Card</td>
-            <td><%= @total.format %></td>
-          </tr>
-        </tbody>
       </table>
     </div>
   </div>
   <div class="spacer"></div>
+  <div class="spacer"></div>
   <div class="col-xs-12">
-    <strong> Note: </strong> This invoice is computer generated and no signature is required.
+
   </div>
   <div class="spacer"></div>
-  <div class="col-xs-12 hidden-print text-right"><hr>
-     <a class="btn btn-primary btn-sm" href="javascript:window.print()">Print Invoice</a>&nbsp;
+  <div class="col-xs-12 hidden-print text-center "><hr>
+     <a class="btn btn-primary btn-sm" href="javascript:window.print()">Print Monthly Summary</a>&nbsp;
      <a class="btn btn-default btn-sm" href="javascript:window.close()">Close</a>
   </div>
 </div>
