@@ -71,7 +71,7 @@ before_fork do |server, worker|
   # # thundering herd (especially in the "preload_app false" case)
   # # when doing a transparent upgrade.  The last worker spawned
   # # will then kill off the old master process with a SIGQUIT.
-  old_pid = "#{APP_PATH}/tmp/pids/unicorn.pid.oldbin"
+  old_pid = APP_PATH + "/tmp/pids/unicorn.pid.oldbin"
   if File.exists?(old_pid) && server.pid != old_pid
     begin
       Process.kill("QUIT", File.read(old_pid).to_i)
