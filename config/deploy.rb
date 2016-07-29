@@ -1,5 +1,5 @@
 set :application, 'partner'
-set :repo_url, 'https://github.com/dotph/partner.git'
+set :repo_url, 'https://github.com/catameojc/partner.git'
 set :branch, ENV['REVISION'] || ENV['BRANCH'] || proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 set :rails_env, 'production'
 
